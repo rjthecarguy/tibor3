@@ -67,6 +67,14 @@ this.db = new PouchDB('tibor2');
 saveReport() {
 var reportID = new Date().toISOString();
 var reportText = this.reportText;
+var reportType = this.reportType;
+var reportTime = this.reportTime;
+var reportLat = this.lat;
+var reportLong = this.long;
+var reportTemp = this.feelsLike;
+var reportRain = this.precip_in;
+var reportVis = this.vis_miles;
+var reportWind = this.wind;
 
 this.db.put (
 
@@ -74,6 +82,14 @@ this.db.put (
 
     {
     _id : reportID,
+    reportType: reportType,
+    reportTime:reportTime,
+    reportLat: reportLat,
+    reportLong: reportLong,
+    reportTemp: reportTemp,
+    reportRain: reportRain,
+    reportVis: reportVis,
+    reportWind: reportWind,
     reportText: reportText
 
     }
