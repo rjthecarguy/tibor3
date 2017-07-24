@@ -79,6 +79,41 @@ closeReport() {
 } 
 
 
+customEntry() {
+
+let alert = this.alertCtrl.create({
+      title: 'Custom Entry',
+      message: '',
+      inputs: [
+        {
+          name: 'customEntry',
+          placeholder: 'Custom Entry'
+        },
+       
+      ],
+      buttons: [
+        {
+          text: 'Save',
+          handler: (data) => {
+          this.reportText += this.report.getDateTime();
+          this.reportText += " - " + data.customEntry + "\n\n";
+          }
+        },
+        
+       
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+      ]
+    });
+
+    alert.present();
+
+}
+
 getPerson() {
 
 
@@ -248,7 +283,7 @@ callType() {
         this.testRadioResult = data;
         this.report.reportTime = this.report.getDateTime();
         this.reportText = this.report.reportTime;
-        this.reportText += " - " + data + " Reported\n\n";
+        this.reportText += " - " + data + "\n\n";
         this.report.reportType = data;
 
       }
