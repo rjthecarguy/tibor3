@@ -1,0 +1,27 @@
+page-report-page {
+
+
+#reportText {
+	height: 60%;
+	max-height: 60%;
+	overflow: scroll;
+}
+
+
+button {width: 30%;}
+
+
+#personPicDiv img {
+	height:60px;
+}
+
+#personPicDiv {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	border: 1px solid black;
+}
+
+#closeReportButton {
+	background-color: red;
+}
+}
