@@ -74,7 +74,9 @@ this.navCtrl.push(ReportDetail);
 }
 
 closeReport() {
+this.report.reportText = this.reportText;
 
+this.report.saveReport();
 
 } 
 

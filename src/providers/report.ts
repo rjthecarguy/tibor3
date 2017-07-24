@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
+import PouchDB from 'pouchdb';
 
 /*
   Generated class for the Report provider.
@@ -12,12 +13,14 @@ import { Http } from '@angular/http';
 @Injectable()
 export class Report {
 
-
+db: any;
+  remote: string = 'http://74.208.165.188:5984/tibor2';
 
 //Report Info
 
 reportType: any;
 reportTime: any;
+reportText:any;
 
 // Location Information
 lat:any;
@@ -46,8 +49,38 @@ wind:any;
 
 
   constructor(public geolocation: Geolocation, public http: Http) {
+
+this.db = new PouchDB('tibor2');
+ 
+        let options = {
+          live: true,
+          retry: true
+        };
+ 
+       this.db.sync(this.remote, options);
+
+
     console.log('Hello Report Provider');
   }
+
+
+saveReport() {
+var reportID = new Date().toISOString();
+var reportText = this.reportText;
+
+this.db.put (
+
+
+
+    {
+    _id : reportID,
+    reportText: reportText
+
+    }
+
+  );
+
+}
 
 
 getWeather()  {
