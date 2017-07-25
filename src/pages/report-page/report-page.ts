@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import {Report} from '../../providers/report'
 import {TakePicture} from '../take-picture/take-picture'
 import {ReportDetail} from '../report-detail/report-detail'
+import { HomePage } from '../home/home';
 /**
  * Generated class for the ReportPage page.
  *
@@ -67,6 +68,9 @@ postPerson(person){
 
 }
 
+
+
+
 reportInfo() {
 
 this.navCtrl.push(ReportDetail);
@@ -75,6 +79,34 @@ this.navCtrl.push(ReportDetail);
 
 closeReport() {
 this.report.reportText = this.reportText;
+
+let alert = this.alertCtrl.create({
+      title: 'Save Report?',
+      message: '',
+     
+      buttons: [
+        {
+          text: 'Save',
+          handler: (data) => {
+            this.report.saveReport();
+            this.navCtrl.setRoot(HomePage);
+          
+          }
+        },
+        
+       
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+      ]
+    });
+
+    alert.present();
+
+
 
 this.report.saveReport();
 

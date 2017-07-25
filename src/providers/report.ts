@@ -1,8 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
 import PouchDB from 'pouchdb';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/from';
+
 
 /*
   Generated class for the Report provider.
@@ -13,6 +17,7 @@ import PouchDB from 'pouchdb';
 @Injectable()
 export class Report {
 
+reportSubject: any = new Subject();  
 db: any;
   remote: string = 'http://74.208.165.188:5984/tibor2';
 
@@ -48,7 +53,7 @@ wind:any;
 
 
 
-  constructor(public geolocation: Geolocation, public http: Http) {
+  constructor(public geolocation: Geolocation, public http: Http, public zone: NgZone) {
 
 this.db = new PouchDB('tibor2');
  
@@ -58,6 +63,13 @@ this.db = new PouchDB('tibor2');
         };
  
        this.db.sync(this.remote, options);
+
+
+       this.db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
+           if(change.doc.type === 'report'){
+                this.emitReports();
+          }
+        });
 
 
     console.log('Hello Report Provider');
@@ -75,6 +87,7 @@ var reportTemp = this.feelsLike;
 var reportRain = this.precip_in;
 var reportVis = this.vis_miles;
 var reportWind = this.wind;
+var docType = "report";
 var pic = 'iVBORw0KGgoAAAANSUhEUgAAACgAAAAkCAIAAAB0Xu9BAAAABGdBTUEAALGPC/xhBQAAAuNJREFUWEetmD1WHDEQhDdxRMYlnBFyBIccgdQhKVcgJeQMpE5JSTd2uqnvIGpVUqmm9TPrffD0eLMzUn+qVnXPwiFd/PP6eLh47v7EaazbmxsOxjhTT88z9hV7GoNF1cUCvN7TTPv/gf/+uQPm862MWTL6fff4HfDx4S79/oVAlAUwqOmYR0rnazuFnhfOy/ErMKkcBFOr1vOjUi2MFn4nuMil6OPh5eGANLhW3y6u3aH7ijEDCxgCvzFmimvc95TekZLyMSeJC68Bkw0kqUy1K87FlpGZqsGFCyqEtQNDdFUtFctTiuhnPKNysid/WFEFLE2O102XJdEE+8IgeuGsjeJyGHm/xHvQ3JtKVsGGp85g9rK6xMHtvHO9+WACYjk5vkVM6XQ6OZubCJvTfPicYPeHO2AKFl5NuF5UK1VDUbeLxh2BcRGKTQE3irHm3+vPj6cfCod50Eqv5QxtwBQUGhZhbrGVuRia1B4MNp6edwBxld2sl1splfHCwfsvCZfrCQyWmX10djjOlWJSSy3VQlS6LmfrgNvaieRWx1LZ6s9co+P0DLsy3OdLU3lWRclQsVcHJBcUQ0k9/WVVrmpRzYQzpgAdQcAXxZzUnFX3proannrYH+Vq6KkLi+UkarH09mC8YPr2RMWOlEqFkQClsykGEv7CqCUbXcG8+SaGvJ4a8d4y6epND+pEhxoN0vWUu5ntXlFb5/JT7JfJJqoTdy9u9qc7ax3xJRHqJLADWEl23cFWl4K9fvoaCJ2BHpmJ3s3z+O0U/DmzdMjB9alWZtg4e3yxzPa7lUR7nkvxLHO9+tvJX3mtSDpwX8GajB283I8R8a7D2MhUZr1iNWdny256yYLd52DwRYBtRMvE7rsmtxIUE+zLKQCDO4jlxB6CZ8M17GhuY+XTE8vNhQiIiSE82ZsGwk1pht4ZSpT0YVpon6EvevOXXH8JxVR78QzNuamupW/7UB7wO/+7sG5V4ekXb4cL5Lyv+4IAAAAASUVORK5CYII=';
 
 this.db.put (
@@ -83,6 +96,7 @@ this.db.put (
 
     {
     _id : reportID,
+    type: docType,
     reportType: reportType,
     reportTime:reportTime,
     reportLat: reportLat,
@@ -105,6 +119,31 @@ this.db.put (
 
 }
 
+
+
+emitReports() {
+
+  this.zone.run(() => {
+
+          
+ 
+            this.db.query('reports/byType').then((data) => {
+ 
+                let Players = data.rows.map(row => {
+                    return row.value;
+                });
+ 
+                this.reportSubject.next(Players);
+ 
+            });
+ 
+        });
+ 
+
+
+
+
+}
 
 getWeather()  {
 
