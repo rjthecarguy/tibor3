@@ -13,6 +13,7 @@ import { Camera } from '@ionic-native/camera';
 import { TakePicture} from '../pages/take-picture/take-picture';
 import { GetImage} from '../pages/get-image/get-image';
 import { HttpModule } from '@angular/http';
+import { ViewReports} from '../pages/view-reports/view-reports';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -31,7 +32,8 @@ import { ReportDetail } from '../pages/report-detail/report-detail';
     PicturePage,
     TakePicture,
     GetImage,
-    ReportDetail
+    ReportDetail,
+    ViewReports
 
     ],
   imports: [
@@ -48,7 +50,8 @@ import { ReportDetail } from '../pages/report-detail/report-detail';
     PicturePage,
     TakePicture,
     GetImage,
-    ReportDetail
+    ReportDetail,
+    ViewReports
 
   ],
   providers: [

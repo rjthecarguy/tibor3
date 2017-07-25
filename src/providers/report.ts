@@ -4,9 +4,10 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Http } from '@angular/http';
 import PouchDB from 'pouchdb';
 import { Subject } from 'rxjs/Subject';
+import PouchDBFind from 'pouchdb-find';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/from';
-
+PouchDB.plugin(PouchDBFind);
 
 /*
   Generated class for the Report provider.
@@ -120,24 +121,64 @@ this.db.put (
 }
 
 
+ getReports() {
 
-emitReports() {
+
+    this.emitReports();
+
+    return this.reportSubject;
+
+
+
+  }
+
+
+
+
+emitReports(): void {
 
   this.zone.run(() => {
 
-          
+            console.log("NGZone");
  
-            this.db.query('reports/byType').then((data) => {
+
+            this.db.createIndex({
+  index: {fields: ['reportType']}
+})
+
+ this.db.find({
+  selector: {
+    reportType: 'Accident'
+  }
+}).then((data) => {
+
+console.log("HEre is the data");
+console.log(data);
+
+
+}); 
+
+
+           //this.db.allDocs({include_docs: true}).then((data)=> {
+       //    this.db.query('reports/byType').then((data) => {
+
+         //     console.log("Reports Fresh");
+          //    console.log(data);
  
-                let Players = data.rows.map(row => {
-                    return row.value;
-                });
+            //    let Reports = data.rows.map(row => {
+              //     return row.value;
+
+             //  });
  
-                this.reportSubject.next(Players);
+              // console.log("Data Mapped");
+              // console.log(Reports);
+
+
+            //   this.reportSubject.next(Reports);
  
-            });
+           // });
  
-        });
+        }); 
  
 
 

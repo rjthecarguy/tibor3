@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { ActionSheet} from '../providers/action-sheet';
 import { Events } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
+import { ViewReports } from '../pages/view-reports/view-reports';
 
 @Component({
   templateUrl: 'app.html'
@@ -44,8 +45,14 @@ this.nav.push(pageName);
 
     this.reports = [
       { title: 'File a Report', component: HomePage },
-      { title: 'My Reports', component: ListPage }
+      { title: 'My Reports', component: ViewReports }
     ];
+
+  }
+
+
+  openReportList(){
+    this.nav.setRoot(ViewReports);
 
   }
 
