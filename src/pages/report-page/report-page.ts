@@ -108,7 +108,7 @@ let alert = this.alertCtrl.create({
 
 
 
-this.report.saveReport();
+
 
 } 
 

@@ -156,40 +156,18 @@ this.db.createIndex({
 }).then((data) => {
 
 
-this.reportRecord = "test";
+
+     let Reports = data.docs.map(row => {
+                  return row;
+                          });
+
+           this.reportSubject.next(Reports);
+
+                  });   // << Promise End 
 
 
- let Reports = data.docs.map(row => {
-                
-                return row;
-              });
-
-console.log("HEre is the data");
-console.log(Reports);
-
-
-this.reportSubject.next(Reports);
-
-}); 
-
-
-           //this.db.allDocs({include_docs: true}).then((data)=> {
-       //    this.db.query('reports/byType').then((data) => {
-
-         //     console.log("Reports Fresh");
-          //    console.log(data);
- 
-               
- 
-              // console.log("Data Mapped");
-              // console.log(Reports);
-
-
-            //   this.reportSubject.next(Reports);
- 
-           // });
- 
-        }); 
+          
+        }); // << Zone End
  
 
 
