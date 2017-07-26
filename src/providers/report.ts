@@ -18,6 +18,9 @@ PouchDB.plugin(PouchDBFind);
 @Injectable()
 export class Report {
 
+
+reportRecord:any;
+
 reportSubject: any = new Subject();  
 db: any;
   remote: string = 'http://74.208.165.188:5984/tibor2';
@@ -139,22 +142,33 @@ emitReports(): void {
 
   this.zone.run(() => {
 
-            console.log("NGZone");
+           
  
 
-            this.db.createIndex({
-  index: {fields: ['reportType']}
+this.db.createIndex({
+  index: {fields: ['type']}
 })
 
  this.db.find({
   selector: {
-    reportType: 'Accident'
+    type: 'report'
   }
 }).then((data) => {
 
-console.log("HEre is the data");
-console.log(data);
 
+this.reportRecord = "test";
+
+
+ let Reports = data.docs.map(row => {
+                
+                return row;
+              });
+
+console.log("HEre is the data");
+console.log(Reports);
+
+
+this.reportSubject.next(Reports);
 
 }); 
 
@@ -165,10 +179,7 @@ console.log(data);
          //     console.log("Reports Fresh");
           //    console.log(data);
  
-            //    let Reports = data.rows.map(row => {
-              //     return row.value;
-
-             //  });
+               
  
               // console.log("Data Mapped");
               // console.log(Reports);

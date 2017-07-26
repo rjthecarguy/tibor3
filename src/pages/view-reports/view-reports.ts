@@ -22,16 +22,15 @@ reportRecord:any;
 
   ionViewDidLoad() {
 
-  	this.report.getReports().subscribe((Report) => {
- 		this.reportRecord = Report;
 
- 		console.log("report below");
- 		console.log(Report);
+this.report.getReports().subscribe((reportRecord) =>  {
 
- 		});
+	this.reportRecord = reportRecord;
+});
 
-    console.log('ionViewDidLoad ViewReports');
-    console.log(this.reportRecord);
+
+   console.log('ionViewDidLoad ViewReports');
+    
 
 }
   
