@@ -4,6 +4,9 @@ import {Report} from '../../providers/report'
 import {TakePicture} from '../take-picture/take-picture'
 import {ReportDetail} from '../report-detail/report-detail'
 import { HomePage } from '../home/home';
+import {Observable} from 'rxjs/Observable';    
+
+
 /**
  * Generated class for the ReportPage page.
  *
@@ -26,16 +29,41 @@ testRadioOpen = false;
 
   picImage:any;
 
+  myObservable : any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public report:Report) {
 
-this.report.getLocation();
+//this.report.getLocation();
 
 
+this.report.reportPageSubject.subscribe((data) => {
+
+this.reportText = data;
+
+console.log("OBSERVE");
+console.log(data);
+});
+
+
+this.myObservable = Observable.create(observer => {
+
+
+
+});;
+
+
+this.reportText = this.report.reportText;
   	
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReportPage');
+
+
+    this.myObservable.subscribe((data) => {
+
+    });
+
   }
 
 
@@ -257,70 +285,49 @@ let alert = this.alertCtrl.create();
 
 
 
+getEmpByLast4(data) {
 
-callType() {
 
-	let alert = this.alertCtrl.create();
-    alert.setTitle('Report Type');
+this.report.getByLast4(data);
 
-    alert.addInput({
-      type: 'radio',
-      label: 'Accident',
-      value: 'Accident',
-      checked: true
-    });
+console.log(this.report.reportPerson);
 
-    alert.addInput({
-      type: 'radio',
-      label: 'Alarm',
-      value: 'Alarm'
-    });
+}
 
-    alert.addInput({
-      type: 'radio',
-      label: 'Assault',
-      value: 'Assault'
-    });
 
-     alert.addInput({
-      type: 'radio',
-      label: 'Suspicius Activity',
-      value: 'Suspicious Activity'
-    });
 
-    alert.addInput({
-      type: 'radio',
-      label: 'Theft',
-      value: 'Theft'
-    });
 
-    alert.addInput({
-      type: 'radio',
-      label: 'Traffic Stop',
-      value: 'Traffic Stop'
-    });
 
-    alert.addInput({
-      type: 'radio',
-      label: 'Unknown',
-      value: 'Unknown'
-    });
+onDuty() {
 
-   
-
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'Ok',
-      handler: (data: any) => {
-        console.log('Radio data:', data);
-        this.testRadioOpen = false;
-        this.testRadioResult = data;
-        this.report.reportTime = this.report.getDateTime();
-        this.reportText = this.report.reportTime;
-        this.reportText += " - " + data + "\n\n";
-        this.report.reportType = data;
-
-      }
+	let alert = this.alertCtrl.create({
+      title: 'On Duty',
+      message: 'Please Enter Last 4',
+      inputs: [
+        {
+          name: 'last4',
+          placeholder: 'Last 4 SSAN'
+        },
+       
+      ],
+      buttons: [
+        {
+          text: 'Go On Duty',
+          handler: (data) => {
+            console.log(data.last4);
+          this.getEmpByLast4(data.last4);  
+          
+          }
+        },
+        
+       
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+      ]
     });
 
     alert.present();

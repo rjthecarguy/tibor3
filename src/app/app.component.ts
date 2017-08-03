@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ActionSheet} from '../providers/action-sheet';
+import {Report} from '../providers/report';
 import { Events } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { ViewReports } from '../pages/view-reports/view-reports';
@@ -15,6 +16,7 @@ import { ViewReports } from '../pages/view-reports/view-reports';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
+  
 
   rootPage: any = HomePage;
 

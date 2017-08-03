@@ -9,6 +9,7 @@ import { ListPage } from '../pages/list/list';
 import { PicturePage } from '../pages/picture-page/picture-page';
 import { ActionSheet } from '../providers/action-sheet';
 import { Report } from '../providers/report';
+import { DBData } from '../providers/db-data';
 import { Camera } from '@ionic-native/camera';
 import { TakePicture} from '../pages/take-picture/take-picture';
 import { GetImage} from '../pages/get-image/get-image';
@@ -57,9 +58,10 @@ import { ReportDetail } from '../pages/report-detail/report-detail';
   providers: [
     StatusBar,
     Camera,
+    Report,
     SplashScreen,
     ActionSheet,
-    Report,
+    DBData,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
