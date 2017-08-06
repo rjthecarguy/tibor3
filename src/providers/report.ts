@@ -116,10 +116,16 @@ loadLog (logID)  {
                          }
               }).then((data) => {
 
-                console.log(data);
+              
 
+                   this.reportData._id = logID; 
                    this .reportData.text =  data.docs[0].text; // get data to local record
+                   this.reportData._rev = data.docs[0]._rev;
+                   this.reportData.status = "open";
+                   this.reportData.type = "report";
                    this.reportPageSubject.next(this.reportData);  // post subject to subscribers
+
+                     console.log(this.reportData);
 
               });
 
