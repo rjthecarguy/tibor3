@@ -23,6 +23,17 @@ export class Report {
 
 
 
+reportData =   {"_id": "",
+                "_rev": "",
+               "last4":"",
+               "type":"",
+               "text":"",
+               "guard":""};
+
+
+
+
+
 reportRecord:any;
 
 reportSubject: any = new Subject();  
@@ -68,6 +79,8 @@ wind:any;
 
 
 
+
+
    
 
 this.DBdata.db.changes({live: true, since: 'now', include_docs: true}).on('change', (change) => {
@@ -84,9 +97,36 @@ this.DBdata.db.changes({live: true, since: 'now', include_docs: true}).on('chang
 
 
 
+
+
+loadLog (logID)  {
+
+
+      this.DBdata.db.createIndex({     // Create index to get by ID
+          index: {fields: ['_id']}
+          })
+
+
+          this.DBdata.db.find({            // Get Log by ID
+              selector: {
+                        _id: {$eq:logID} 
+                         }
+              }).then((data) => {
+
+                   this .reportData.text =  data.docs[0].reportText; // get data to local record
+                   this.reportPageSubject.next(this.reportData);  // post subject to subscribers
+
+              });
+
+
+
+}
+
+
+
 newLog () {
 
-  var reportID = new Date().toISOString();
+        this.reportData._id = new Date().toISOString();
 
           this.reportText += this.getDateTime();
           this.reportText += "\n - " + this.reportPerson;
@@ -154,6 +194,56 @@ this.DBdata.db.put (
 
 
   }
+
+
+
+verifyStaff(last4) : any {
+
+  this.DBdata.db.createIndex({
+  index: {fields: ['type',"last4","status"]}
+})
+
+
+this.DBdata.db.find({
+  selector: {
+    last4: {$eq:last4},
+    type: {$eq:"staff"} 
+   }
+      }).then((data) => {
+
+            if(data.docs.length == 0)   // Staff not foud by last 4
+                return false;
+
+              else  // Staff found by last 4
+                {
+
+                    this.DBdata.db.find({    // find open report
+                        selector:
+
+                        {
+                        last4: {$eq:last4},
+                        type: {$eq:"report"},
+                        status: {$eq:"open"} 
+                        }  
+
+                          }).then((data) => {
+                                    if(data.docs.length !=0)  // Open log found
+                                            this.loadLog(data.docs[0]._id); //load existing log  
+                              });
+
+
+
+
+                } // end of 'yes' Else Statemant
+
+
+
+      });
+
+
+
+}
+
 
 
 

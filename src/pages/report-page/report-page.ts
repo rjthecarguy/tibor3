@@ -36,12 +36,12 @@ testRadioOpen = false;
 //this.report.getLocation();
 
 
-this.report.reportPageSubject.subscribe((data) => {
+this.report.reportPageSubject.subscribe((reportData) => {
 
-this.reportText = data;
+this.reportText = reportData.text;
 
 console.log("OBSERVE");
-console.log(data);
+
 });
 
 
@@ -288,9 +288,12 @@ let alert = this.alertCtrl.create();
 getEmpByLast4(data) {
 
 
-this.report.getByLast4(data);
+//this.report.getByLast4(data);
 
-console.log(this.report.reportPerson);
+
+console.log(this.report.verifyStaff(data));
+
+
 
 }
 
