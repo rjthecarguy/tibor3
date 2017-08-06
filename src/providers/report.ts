@@ -28,7 +28,8 @@ reportData =   {"_id": "",
                "last4":"",
                "type":"",
                "text":"",
-               "guard":""};
+               "name":"",
+               "status":""};
 
 
 
@@ -101,6 +102,8 @@ this.DBdata.db.changes({live: true, since: 'now', include_docs: true}).on('chang
 
 loadLog (logID)  {
 
+    console.log("LOAD LOG");
+    console.log(logID);
 
       this.DBdata.db.createIndex({     // Create index to get by ID
           index: {fields: ['_id']}
@@ -113,7 +116,9 @@ loadLog (logID)  {
                          }
               }).then((data) => {
 
-                   this .reportData.text =  data.docs[0].reportText; // get data to local record
+                console.log(data);
+
+                   this .reportData.text =  data.docs[0].text; // get data to local record
                    this.reportPageSubject.next(this.reportData);  // post subject to subscribers
 
               });
@@ -126,13 +131,36 @@ loadLog (logID)  {
 
 newLog () {
 
-        this.reportData._id = new Date().toISOString();
 
-          this.reportText += this.getDateTime();
-          this.reportText += "\n - " + this.reportPerson;
-          this.reportText += " On Duty";  
+        console.log("NEW LOG");
 
-            this.reportPageSubject.next(this.reportText);
+          this.reportData._id = new Date().toISOString();
+
+         this.reportData.text = this.getDateTime();
+         this.reportData.type = "report";
+         this.reportData.status = "open";
+
+
+         this.reportData.text += " - " + this.reportData.name + " On Duty";
+
+         console.log(this.reportData.text);
+
+         this.DBdata.db.put(
+
+           {_id : this.reportData._id,
+             type: "report",
+             status: "open",
+             text: this.reportData.text,
+             guard: this.reportData.name,
+             last4: this.reportData.last4}
+
+           );
+
+          //this.reportText += this.getDateTime();
+          //this.reportText += "\n - " + this.reportPerson;
+          //this.reportText += " On Duty";  
+
+          this.reportPageSubject.next(this.reportData);
           
 
 
@@ -217,6 +245,11 @@ this.DBdata.db.find({
               else  // Staff found by last 4
                 {
 
+
+
+                  this.reportData.last4 = data.docs[0].last4;      // move Staff data to local var
+                  this.reportData.name = data.docs[0].name;
+
                     this.DBdata.db.find({    // find open report
                         selector:
 
@@ -228,7 +261,12 @@ this.DBdata.db.find({
 
                           }).then((data) => {
                                     if(data.docs.length !=0)  // Open log found
-                                            this.loadLog(data.docs[0]._id); //load existing log  
+                                        {
+
+                                        this.loadLog(data.docs[0]._id); //load existing log
+                                        }  
+                                                else  this.newLog();
+
                               });
 
 
@@ -410,7 +448,7 @@ var todayDate = new Date().toLocaleDateString();
 var todayTime = new Date().toLocaleTimeString();
 
 
-	return todayDate + "\n" + todayTime; 
+	return todayDate + "\n" + todayTime + "\n"; 
 
 
   }
