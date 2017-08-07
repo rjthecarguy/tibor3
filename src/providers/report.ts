@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AlertController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import PouchDB from 'pouchdb';
 import { Subject } from 'rxjs/Subject';
@@ -20,7 +21,7 @@ import {ReportPage} from '../pages/report-page/report-page'
 @Injectable()
 export class Report {
 
-
+reportOpen: any = false;
 
 
 reportData =   {"_id": "",
@@ -76,7 +77,7 @@ wind:any;
 
 
 
-  constructor(public geolocation: Geolocation, public http: Http, public zone: NgZone, public DBdata:DBData) {
+  constructor(public geolocation: Geolocation, public http: Http, public zone: NgZone, public DBdata:DBData, public alertCtrl: AlertController) {
 
 
 
@@ -123,9 +124,10 @@ loadLog (logID)  {
                    this.reportData._rev = data.docs[0]._rev;
                    this.reportData.status = "open";
                    this.reportData.type = "report";
+
                    this.reportPageSubject.next(this.reportData);  // post subject to subscribers
 
-                     console.log(this.reportData);
+                   this.reportOpen = true;  
 
               });
 
@@ -147,7 +149,7 @@ newLog () {
          this.reportData.status = "open";
 
 
-         this.reportData.text += " - " + this.reportData.name + " On Duty";
+         this.reportData.text += " - " + this.reportData.name + " On Duty" + "\n\n";
 
          console.log(this.reportData.text);
 
@@ -162,9 +164,12 @@ newLog () {
 
            );
 
+         this.loadLog(this.reportData._id);
+
           //this.reportText += this.getDateTime();
           //this.reportText += "\n - " + this.reportPerson;
           //this.reportText += " On Duty";  
+
 
           this.reportPageSubject.next(this.reportData);
           
@@ -254,7 +259,7 @@ this.DBdata.db.find({
 
 
                   this.reportData.last4 = data.docs[0].last4;      // move Staff data to local var
-                  this.reportData.name = data.docs[0].name;
+                  this.reportData.name = data.docs[0].staffName;
 
                     this.DBdata.db.find({    // find open report
                         selector:
@@ -288,6 +293,16 @@ this.DBdata.db.find({
 
 }
 
+
+postEntry(entry) {
+
+this.reportData.text += entry;
+this.reportPageSubject.next(this.reportData);
+this.DBdata.db.put(this.reportData);
+
+
+
+}
 
 
 
@@ -433,6 +448,31 @@ getWeather()  {
   }
 
 
+
+reportWarning() {
+
+
+let alert = this.alertCtrl.create({
+      title: 'No Log Open',
+      message: 'Please Go On Duty',
+     
+      buttons: [
+            
+       
+        {
+          text: 'OK',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+      ]
+    });
+
+    alert.present();
+
+}
+
+
 getLocation() {
 
 	this.geolocation.getCurrentPosition().then((position) => {
@@ -445,6 +485,16 @@ getLocation() {
 
 
 	});
+}
+
+
+postDateTime() {
+
+  this.reportData.text += this.getDateTime();
+
+  console.log(this.reportData.text);
+
+  this.reportPageSubject.next(this.reportData);
 }
 
 

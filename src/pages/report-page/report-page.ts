@@ -4,7 +4,8 @@ import {Report} from '../../providers/report'
 import {TakePicture} from '../take-picture/take-picture'
 import {ReportDetail} from '../report-detail/report-detail'
 import { HomePage } from '../home/home';
-import {Observable} from 'rxjs/Observable';    
+import {Observable} from 'rxjs/Observable';   
+import {VehicleInspection} from '../vehicle-inspection/vehicle-inspection'; 
 
 
 /**
@@ -66,6 +67,21 @@ this.reportText = this.report.reportText;
 
   }
 
+vehicleInspection() {
+
+if(this.report.reportOpen == false) 
+    {
+      this.report.reportWarning();
+      return;
+    } 
+    
+
+ this.navCtrl.push(VehicleInspection);
+
+
+}
+
+
 
 addText() {
 
@@ -95,6 +111,10 @@ postPerson(person){
 
 
 }
+
+
+
+
 
 
 

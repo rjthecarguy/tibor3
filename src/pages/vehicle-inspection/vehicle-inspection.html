@@ -1,0 +1,41 @@
+<!--
+  Generated template for the VehicleInspection page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Vehicle Inspection</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+ <ion-item>
+    <ion-label>Fuel Level</ion-label>
+    <ion-range min="0" max="100" step="10" snaps="true" color="secondary" [(ngModel)]="fuel"></ion-range>
+
+  </ion-item>
+
+  <img src="img/fuel.png"/>
+
+<div style="margin-top:40px;">
+  <ion-item>
+  	
+    <ion-label color="primary">Starting Miles</ion-label>
+    <ion-input placeholder="Enter Mileage" [(ngModel)]="miles"></ion-input>
+   
+  </ion-item>
+   </div>
+
+</ion-content>
+
+<ion-footer>
+<div style="text-align: center; margin-bottom: 25px;">
+<button ion-button (click)="postVehicleInspection()">Post Inspection</button>
+</div>
+</ion-footer>
