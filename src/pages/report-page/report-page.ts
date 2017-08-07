@@ -5,7 +5,9 @@ import {TakePicture} from '../take-picture/take-picture'
 import {ReportDetail} from '../report-detail/report-detail'
 import { HomePage } from '../home/home';
 import {Observable} from 'rxjs/Observable';   
-import {VehicleInspection} from '../vehicle-inspection/vehicle-inspection'; 
+import {VehicleInspection} from '../vehicle-inspection/vehicle-inspection';
+import {Rounds} from '../rounds/rounds';  
+import {Detection} from '../detection/detection'; 
 
 
 /**
@@ -81,6 +83,30 @@ if(this.report.reportOpen == false)
 
 }
 
+detection() {
+
+if(this.report.reportOpen == false) 
+    {
+      this.report.reportWarning();
+      return;
+    } 
+
+   this.navCtrl.push(Detection); 
+
+} 
+
+
+rounds() {
+
+if(this.report.reportOpen == false) 
+    {
+      this.report.reportWarning();
+      return;
+    } 
+
+   this.navCtrl.push(Rounds); 
+
+}
 
 
 addText() {

@@ -99,6 +99,31 @@ this.DBdata.db.changes({live: true, since: 'now', include_docs: true}).on('chang
 
 
 
+getRevision(logID)  {
+
+this.DBdata.db.find({            // Get Log by ID
+              selector: {
+                        _id: {$eq:logID} 
+                         }
+              }).then((data) => {
+
+              
+
+                  
+                  
+                   this.reportData._rev = data.docs[0]._rev;
+                  
+                   this.reportPageSubject.next(this.reportData);  // post subject to subscribers
+
+                     
+
+              });
+
+
+}
+
+
+
 
 
 loadLog (logID)  {
@@ -296,9 +321,14 @@ this.DBdata.db.find({
 
 postEntry(entry) {
 
+console.log(this.reportData);
+
+
 this.reportData.text += entry;
 this.reportPageSubject.next(this.reportData);
 this.DBdata.db.put(this.reportData);
+
+this.getRevision(this.reportData._id);
 
 
 

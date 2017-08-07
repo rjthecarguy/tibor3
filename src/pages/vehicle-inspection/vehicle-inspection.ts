@@ -30,7 +30,7 @@ fuel : any;
   postVehicleInspection() {
 
   	this.report.postDateTime();
-  	this.report.postEntry(" - Vehicle Inspection\n" + " - Mileage: " + this.miles +"\n" + " - Fuel: " + this.fuel + "%");
+  	this.report.postEntry(" - Vehicle Inspection\n" + " - Mileage: " + this.miles +"\n" + " - Fuel: " + this.fuel + "%" + "\n\n");
   	this.navCtrl.pop();
 
 

@@ -16,7 +16,8 @@ import { GetImage} from '../pages/get-image/get-image';
 import { HttpModule } from '@angular/http';
 import { ViewReports} from '../pages/view-reports/view-reports';
 import { VehicleInspection} from '../pages/vehicle-inspection/vehicle-inspection';
-
+import { Rounds} from '../pages/rounds/rounds';
+import { Detection} from '../pages/detection/detection';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -35,6 +36,8 @@ import { ReportDetail } from '../pages/report-detail/report-detail';
     TakePicture,
     GetImage,
     ReportDetail,
+    Detection,
+    Rounds,
     VehicleInspection,
     ViewReports
 
@@ -48,10 +51,12 @@ import { ReportDetail } from '../pages/report-detail/report-detail';
   entryComponents: [
     MyApp,
     HomePage,
+    Rounds,
     VehicleInspection,
     ListPage,
     MapPage,
     PicturePage,
+    Detection,
     TakePicture,
     GetImage,
     ReportDetail,
