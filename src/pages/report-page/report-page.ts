@@ -9,6 +9,7 @@ import {VehicleInspection} from '../vehicle-inspection/vehicle-inspection';
 import {Rounds} from '../rounds/rounds';  
 import {Detection} from '../detection/detection'; 
 import {Leo} from '../leo/leo'; 
+import {Maint} from '../maint/maint';
 
 
 /**
@@ -119,6 +120,18 @@ if(this.report.reportOpen == false)
     } 
 
    this.navCtrl.push(Rounds); 
+
+}
+
+maint() {
+
+if(this.report.reportOpen == false) 
+    {
+      this.report.reportWarning();
+      return;
+    } 
+
+   this.navCtrl.push(Maint);
 
 }
 

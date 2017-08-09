@@ -19,6 +19,7 @@ import { VehicleInspection} from '../pages/vehicle-inspection/vehicle-inspection
 import { Rounds} from '../pages/rounds/rounds';
 import { Detection} from '../pages/detection/detection';
 import { Leo } from '../pages/leo/leo';
+import { Maint } from '../pages/maint/maint';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -39,6 +40,7 @@ import { ReportDetail } from '../pages/report-detail/report-detail';
     ReportDetail,
     Detection,
     Rounds,
+    Maint,
     Leo,
     VehicleInspection,
     ViewReports
@@ -57,6 +59,7 @@ import { ReportDetail } from '../pages/report-detail/report-detail';
     VehicleInspection,
     ListPage,
     MapPage,
+    Maint,
     PicturePage,
     Detection,
     TakePicture,
