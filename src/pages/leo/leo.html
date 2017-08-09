@@ -1,0 +1,36 @@
+<!--
+  Generated template for the Leo page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>LEO Actions</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+<ion-list radio-group [(ngModel)]="leoAction">
+  <ion-item>
+    <ion-label>LEO Notified</ion-label>
+    <ion-radio value="LEO Notified" checked></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>LEO On Scene</ion-label>
+    <ion-radio value="LEO on Scene"></ion-radio>
+  </ion-item>
+ </ion-list>
+
+</ion-content>
+
+<ion-footer>
+<div style="text-align: center; margin-bottom: 25px;">
+<button ion-button (click)="postLeo()">Post LEO Action</button>
+</div>
+</ion-footer>

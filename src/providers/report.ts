@@ -298,7 +298,7 @@ this.DBdata.db.find({
                           }).then((data) => {
                                     if(data.docs.length !=0)  // Open log found
                                         {
-
+                                         this.logOpenMessage();   
                                         this.loadLog(data.docs[0]._id); //load existing log
                                         }  
                                                 else  this.newLog();
@@ -477,6 +477,28 @@ getWeather()  {
 
   }
 
+
+
+logOpenMessage() {
+let alert = this.alertCtrl.create({
+      title: 'Log Open',
+      message: 'Your log is open.  You can to add entries to this log.  To close this log, go "Off Duty"  ',
+     
+      buttons: [
+            
+       
+        {
+          text: 'OK',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+      ]
+    });
+
+    alert.present();
+
+}
 
 
 reportWarning() {

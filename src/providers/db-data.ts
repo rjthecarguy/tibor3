@@ -29,8 +29,27 @@ this.db = new PouchDB('tibor2');
  
        this.db.sync(this.remote, options);
 
-
+this.db.createIndex({     // Create index to get by ID
+          index: {fields: ['_id']}
+          })
        
+
+
+
+ this.db.find({            // Get Log by ID
+              selector: {
+                        _id: {$eq:"1"} 
+                         }
+              }).then((data) => {
+
+              
+
+                  
+
+              });
+
+
+
 
     console.log('Hello DBData Provider');
   }

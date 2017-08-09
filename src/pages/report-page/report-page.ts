@@ -8,6 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {VehicleInspection} from '../vehicle-inspection/vehicle-inspection';
 import {Rounds} from '../rounds/rounds';  
 import {Detection} from '../detection/detection'; 
+import {Leo} from '../leo/leo'; 
 
 
 /**
@@ -94,6 +95,19 @@ if(this.report.reportOpen == false)
    this.navCtrl.push(Detection); 
 
 } 
+
+
+leo() {
+
+if(this.report.reportOpen == false) 
+    {
+      this.report.reportWarning();
+      return;
+    } 
+
+   this.navCtrl.push(Leo); 
+
+}
 
 
 rounds() {
