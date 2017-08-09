@@ -20,11 +20,14 @@ import { Rounds} from '../pages/rounds/rounds';
 import { Detection} from '../pages/detection/detection';
 import { Leo } from '../pages/leo/leo';
 import { Maint } from '../pages/maint/maint';
+import { Lunch } from '../pages/lunch/lunch';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ReportDetail } from '../pages/report-detail/report-detail';
+import { ReportPage } from '../pages/report-page/report-page';
+
 
 
 
@@ -36,8 +39,10 @@ import { ReportDetail } from '../pages/report-detail/report-detail';
     MapPage,
     PicturePage,
     TakePicture,
+    Lunch,
     GetImage,
     ReportDetail,
+    ReportPage,
     Detection,
     Rounds,
     Maint,
@@ -60,7 +65,9 @@ import { ReportDetail } from '../pages/report-detail/report-detail';
     ListPage,
     MapPage,
     Maint,
+    Lunch,
     PicturePage,
+    ReportPage,
     Detection,
     TakePicture,
     Leo,

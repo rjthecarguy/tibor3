@@ -4,13 +4,13 @@ import { Maint } from './maint';
 
 @NgModule({
   declarations: [
-    Maint,
+    
   ],
   imports: [
     IonicPageModule.forChild(Maint),
   ],
   exports: [
-    Maint
+   
   ]
 })
 export class MaintModule {}

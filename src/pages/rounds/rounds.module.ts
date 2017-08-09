@@ -4,13 +4,13 @@ import { Rounds } from './rounds';
 
 @NgModule({
   declarations: [
-    Rounds,
+   
   ],
   imports: [
     IonicPageModule.forChild(Rounds),
   ],
   exports: [
-    Rounds
+    
   ]
 })
 export class RoundsModule {}

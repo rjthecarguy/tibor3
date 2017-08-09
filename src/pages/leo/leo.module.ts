@@ -4,13 +4,13 @@ import { Leo } from './leo';
 
 @NgModule({
   declarations: [
-    Leo,
+    
   ],
   imports: [
     IonicPageModule.forChild(Leo),
   ],
   exports: [
-    Leo
+    
   ]
 })
 export class LeoModule {}

@@ -10,6 +10,7 @@ import {Rounds} from '../rounds/rounds';
 import {Detection} from '../detection/detection'; 
 import {Leo} from '../leo/leo'; 
 import {Maint} from '../maint/maint';
+import {Lunch} from '../lunch/lunch';
 
 
 /**
@@ -19,7 +20,7 @@ import {Maint} from '../maint/maint';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-report-page',
   templateUrl: 'report-page.html',
@@ -123,6 +124,19 @@ if(this.report.reportOpen == false)
 
 }
 
+
+lunch() {
+
+if(this.report.reportOpen == false) 
+    {
+      this.report.reportWarning();
+      return;
+    } 
+
+   this.navCtrl.push(Lunch); 
+
+}
+
 maint() {
 
 if(this.report.reportOpen == false) 
@@ -178,40 +192,7 @@ this.navCtrl.push(ReportDetail);
 
 }
 
-closeReport() {
-this.report.reportText = this.reportText;
 
-let alert = this.alertCtrl.create({
-      title: 'Save Report?',
-      message: '',
-     
-      buttons: [
-        {
-          text: 'Save',
-          handler: (data) => {
-            this.report.saveReport();
-            this.navCtrl.setRoot(HomePage);
-          
-          }
-        },
-        
-       
-        {
-          text: 'Cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-      ]
-    });
-
-    alert.present();
-
-
-
-
-
-} 
 
 
 customEntry() {
@@ -371,6 +352,39 @@ console.log(this.report.verifyStaff(data));
 }
 
 
+offDuty() {
+
+  let alert = this.alertCtrl.create({
+      title: 'Off Duty',
+      message: 'This will close your open log and record you as off duty.',
+      
+        buttons: [
+        {
+          text: 'Go Off Duty',
+          handler: () => {
+            
+            this.report.closeReport();
+          
+          }
+        },
+        
+       
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+      ]
+    });
+
+    alert.present();
+
+
+
+}
+
+
 
 
 
@@ -390,7 +404,7 @@ onDuty() {
         {
           text: 'Go On Duty',
           handler: (data) => {
-            console.log(data.last4);
+            
           this.getEmpByLast4(data.last4);  
           
           }

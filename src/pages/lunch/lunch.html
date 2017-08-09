@@ -1,0 +1,35 @@
+<!--
+  Generated template for the Lunch page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Lunch</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-list radio-group [(ngModel)]="lunchStatus">
+  <ion-item>
+    <ion-label>Clock Out </ion-label>
+    <ion-radio value="Lunch - Clock Out" checked></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>Clock In</ion-label>
+    <ion-radio value="Lunch - Clock In"></ion-radio>
+  </ion-item>
+  
+</ion-list>
+
+
+</ion-content>
+<ion-footer>
+<div style="text-align: center; margin-bottom: 25px;">
+<button ion-button (click)="postLunch()">Post Lunch Status</button>
+</div>
+</ion-footer>

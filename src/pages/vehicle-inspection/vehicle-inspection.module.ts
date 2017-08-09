@@ -4,13 +4,13 @@ import { VehicleInspection } from './vehicle-inspection';
 
 @NgModule({
   declarations: [
-    VehicleInspection,
+   
   ],
   imports: [
     IonicPageModule.forChild(VehicleInspection),
   ],
   exports: [
-    VehicleInspection
+    
   ]
 })
 export class VehicleInspectionModule {}

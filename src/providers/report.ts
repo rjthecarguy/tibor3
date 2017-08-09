@@ -123,7 +123,12 @@ this.DBdata.db.find({            // Get Log by ID
 }
 
 
+closeReport() {
 
+this.reportData.status = "closed"
+this.DBdata.db.put(this.reportData);
+
+} 
 
 
 loadLog (logID)  {
