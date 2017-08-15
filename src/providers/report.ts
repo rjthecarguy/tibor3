@@ -189,19 +189,15 @@ newLog () {
              type: "report",
              status: "open",
              text: this.reportData.text,
-             guard: this.reportData.name,
+             name: this.reportData.name,
              last4: this.reportData.last4}
 
            );
 
          this.loadLog(this.reportData._id);
 
-          //this.reportText += this.getDateTime();
-          //this.reportText += "\n - " + this.reportPerson;
-          //this.reportText += " On Duty";  
-
-
-          this.reportPageSubject.next(this.reportData);
+         
+         this.reportPageSubject.next(this.reportData);
           
 
 
@@ -425,8 +421,7 @@ emitReports(): void {
 
   this.zone.run(() => {
 
-           
- 
+          
 
 this.DBdata.db.createIndex({
   index: {fields: ['type']}
