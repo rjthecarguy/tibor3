@@ -26,6 +26,8 @@ reportOpen: any = false;
 
 reportData =   {"_id": "",
                 "_rev": "",
+                "date":"",
+                "time":"",
                "last4":"",
                "type":"",
                "text":"",
@@ -175,6 +177,11 @@ newLog () {
           this.reportData._id = new Date().toISOString();
 
          this.reportData.text = this.getDateTime();
+
+         this.reportData.date = new Date().toLocaleDateString();
+         this.reportData.time = new Date().toLocaleTimeString();
+
+
          this.reportData.type = "report";
          this.reportData.status = "open";
 
@@ -188,6 +195,8 @@ newLog () {
            {_id : this.reportData._id,
              type: "report",
              status: "open",
+             date: this.reportData.date,
+             time: this.reportData.time,
              text: this.reportData.text,
              name: this.reportData.name,
              last4: this.reportData.last4}
