@@ -26,8 +26,10 @@ reportOpen: any = false;
 
 reportData =   {"_id": "",
                 "_rev": "",
-                "date":"",
-                "time":"",
+                "onDate":"",
+                "onTime":"",
+                "offTime":"",
+                "offDate":"",
                "last4":"",
                "type":"",
                "text":"",
@@ -127,8 +129,19 @@ this.DBdata.db.find({            // Get Log by ID
 
 closeReport() {
 
+console.log("Close");
+
 this.reportData.status = "closed"
+
+this.reportData.offDate = new Date().toLocaleDateString();
+this.reportData.offTime = new Date().toLocaleTimeString();
+
+ this.reportData.text += this.getDateTime();
+ this.reportData.text += " - " + this.reportData.name + " Off Duty" + "\n\n";
+
 this.DBdata.db.put(this.reportData);
+
+this.reportPageSubject.next(this.reportData);
 
 } 
 
@@ -178,8 +191,12 @@ newLog () {
 
          this.reportData.text = this.getDateTime();
 
-         this.reportData.date = new Date().toLocaleDateString();
-         this.reportData.time = new Date().toLocaleTimeString();
+         this.reportData.onDate = new Date().toLocaleDateString();
+         this.reportData.onTime = new Date().toLocaleTimeString();
+         this.reportData.offDate = "";
+         this.reportData.offTime = "";
+         
+
 
 
          this.reportData.type = "report";
@@ -195,8 +212,10 @@ newLog () {
            {_id : this.reportData._id,
              type: "report",
              status: "open",
-             date: this.reportData.date,
-             time: this.reportData.time,
+             onDate: this.reportData.onDate,
+             ontime: this.reportData.onTime,
+             offDate: this.reportData.offDate,
+             offtime: this.reportData.offTime,
              text: this.reportData.text,
              name: this.reportData.name,
              last4: this.reportData.last4}
